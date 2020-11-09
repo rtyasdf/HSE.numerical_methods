@@ -1,2 +1,2 @@
-# HSE.numerical_methods
+# Numerical methods
 Homework assignments for numerical methods course
