@@ -9,7 +9,7 @@ def gauss(A: np.ndarray, b: np.ndarray) -> np.ndarray:
         raise ValueError("A and b dimensions don't match")
 
     # add b as a column to A
-    A_ = np.concatenate((A, np.reshape(b, (-1, b.shape[0])).T), axis=1)
+    A_ = np.hstack((A, b.reshape(-1, 1)))
     for j in range(A_.shape[0]):
         A_[j] = A_[j] / A_[j, j]
         for i in range(j + 1, A_.shape[0]):
@@ -18,7 +18,7 @@ def gauss(A: np.ndarray, b: np.ndarray) -> np.ndarray:
     # extract updated b from updated A
     b_ = A_[:, -1]
     A_ = A_[:, :-1]
-    x = np.zeros(b_.shape[0])
+    x = np.zeros_like(b_)
 
     # backtracking
     x[-1] = b_[-1] / A_[-1, -1]
