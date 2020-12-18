@@ -10,7 +10,7 @@ def jacobi_eig(A: np.ndarray, max_iter: int = 100, tol: float = 1e-8) -> np.ndar
     умножениями на ортогональные матрицы простого вида (матрицы поворота):
               
                          A := J(i,j).T @ A @ J(i,j)
-    
+                         
     Матрица J(i,j) выбирается таким образом, чтобы A[i,j] == 0.
     Общий вид матрицы J(i,j) есть в (1). 
     
@@ -42,6 +42,7 @@ def jacobi_eig(A: np.ndarray, max_iter: int = 100, tol: float = 1e-8) -> np.ndar
     1. https://web.stanford.edu/class/cme335/lecture7.pdf
     2. https://wiki.compscicenter.ru/images/1/10/NMM20_lec6.pdf   (слайды 16 - 19)
     """
+    
     n = A.shape[0]
     eig = np.zeros(n)
     
@@ -76,7 +77,6 @@ def jacobi_eig(A: np.ndarray, max_iter: int = 100, tol: float = 1e-8) -> np.ndar
     
     
 def test(N, it, err):
-    
     for _ in range(it):
         A = np.random.random((N,N))
         A = A @ A.T
