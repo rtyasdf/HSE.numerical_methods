@@ -51,24 +51,26 @@ def jacobi_eig(A: np.ndarray, max_iter: int = 100, tol: float = 1e-8) -> np.ndar
     """
     n = A.shape[0]
     eig = np.zeros(n)
+    k = np.sqrt(n * (n - 1))
 
     for _ in range(max_iter):
 
         off = 0
         for i in range(n):
-            off += np.sum(np.abs(A[i, (i + 1):]))
+            off += np.sum(A[i, :i]**2)
+        off = np.sqrt(2.0 * off)
 
         if (off < tol):
             break
         else:
-            limit = off / (n * (n - 1))
+            limit = off / k
             for i in range(n - 1):
                 for j in range(i + 1, n):
                     if (np.abs(A[i, j]) > limit):
 
-                        t = (A[j, j] - A[i, i]) / (2.0 * A[i, j])
-                        sq = np.sign(t) * np.sqrt(1 + t**2)
-                        tan = t - sq
+                        t = A[j, j] - A[i, i]
+                        sq = np.sqrt(4 * A[i, j]**2 + t**2)
+                        tan = (t - sq) / (2.0 * A[i, j])
                         cos = 1 / np.sqrt(1 + tan**2)
                         sin = tan * cos
 
