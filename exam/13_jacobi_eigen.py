@@ -91,7 +91,7 @@ def test(N, it, err):
         A = A @ A.T
         w, v = np.linalg.eig(A)
         u = jacobi_eig(A)
-        assert np.linalg.norm(np.sort(u) - np.sort(w)) < err
+        assert np.allclose(np.sort(u), np.sort(w), atol = err)
 
 
 if __name__ == "__main__":
