@@ -42,7 +42,7 @@ def jacobi_eig(A: np.ndarray, max_iter: int = 100, tol: float = 1e-8) -> np.ndar
 
 
     Returns:
-    eig -- вектор собственных значений матрицы А
+    A.diagonal -- вектор собственных значений матрицы А
 
 
     Ссылки:
@@ -50,7 +50,6 @@ def jacobi_eig(A: np.ndarray, max_iter: int = 100, tol: float = 1e-8) -> np.ndar
     2. https://wiki.compscicenter.ru/images/1/10/NMM20_lec6.pdf   (слайды 16 - 19)
     """
     n = A.shape[0]
-    eig = np.zeros(n)
     k = np.sqrt(n * (n - 1))
 
     for _ in range(max_iter):
@@ -78,10 +77,7 @@ def jacobi_eig(A: np.ndarray, max_iter: int = 100, tol: float = 1e-8) -> np.ndar
                         A[:, i], A[:, j] = cos * A[:, i] + sin * A[:, j],  -sin * A[:, i] + cos * A[:, j]
                         A[i, j] = A[j, i] = 0.0
 
-    for i in range(n):
-        eig[i] = A[i, i]
-
-    return eig
+    return A.diagonal()
 
 
 def test(N, it, err):
